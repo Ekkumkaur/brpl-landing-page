@@ -256,6 +256,13 @@ const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
               title: "Error",
               description: "Payment verification failed.",
             });
+          } finally {
+            setIsProcessingPayment(false);
+          }
+        },
+        modal: {
+          ondismiss: function () {
+            setIsProcessingPayment(false);
           }
         },
         prefill: {
@@ -277,7 +284,6 @@ const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
         title: "Payment Error",
         description: "Failed to initiate payment.",
       });
-    } finally {
       setIsProcessingPayment(false);
     }
   };
