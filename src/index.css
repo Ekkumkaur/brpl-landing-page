@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cricket Theme Design System - Bold, Energetic, Premium */
+
+@layer base {
+  :root {
+    /* Cricket green as primary - bold stadium grass */
+    --background: 160 30% 6%;
+    --foreground: 60 30% 96%;
+
+    --card: 160 25% 10%;
+    --card-foreground: 60 30% 96%;
+
+    --popover: 160 25% 8%;
+    --popover-foreground: 60 30% 96%;
+
+    /* Cricket pitch green */
+    --primary: 145 70% 45%;
+    --primary-foreground: 160 30% 6%;
+
+    /* Deep navy - stadium night */
+    --secondary: 220 60% 15%;
+    --secondary-foreground: 60 30% 96%;
+
+    /* Muted stadium dark */
+    --muted: 160 20% 15%;
+    --muted-foreground: 160 15% 55%;
+
+    /* Golden accent - championship gold */
+    --accent: 45 95% 55%;
+    --accent-foreground: 160 30% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 60 30% 96%;
+
+    --border: 160 20% 18%;
+    --input: 160 20% 15%;
+    --ring: 145 70% 45%;
+
+    --radius: 0.75rem;
+
+    /* Cricket-specific colors */
+    --cricket-green: 145 70% 45%;
+    --cricket-gold: 45 95% 55%;
+    --cricket-red: 0 75% 55%;
+    --cricket-blue: 210 80% 50%;
+    --glass: 160 30% 10% / 0.7;
+    --glass-border: 160 30% 30% / 0.3;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(160 30% 6%) 0%, hsl(160 25% 12%) 50%, hsl(220 60% 10%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(145 70% 45%) 0%, hsl(45 95% 55%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsl(160 30% 15% / 0.4) 0%, hsl(160 30% 10% / 0.2) 100%);
+
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(145 70% 45% / 0.3);
+    --shadow-gold: 0 0 30px hsl(45 95% 55% / 0.4);
+    --shadow-card: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+
+    --sidebar-background: 160 25% 8%;
+    --sidebar-foreground: 60 30% 96%;
+    --sidebar-primary: 145 70% 45%;
+    --sidebar-primary-foreground: 160 30% 6%;
+    --sidebar-accent: 160 20% 15%;
+    --sidebar-accent-foreground: 60 30% 96%;
+    --sidebar-border: 160 20% 18%;
+    --sidebar-ring: 145 70% 45%;
+  }
+
+  .dark {
+    --background: 160 30% 6%;
+    --foreground: 60 30% 96%;
+    --card: 160 25% 10%;
+    --card-foreground: 60 30% 96%;
+    --popover: 160 25% 8%;
+    --popover-foreground: 60 30% 96%;
+    --primary: 145 70% 45%;
+    --primary-foreground: 160 30% 6%;
+    --secondary: 220 60% 15%;
+    --secondary-foreground: 60 30% 96%;
+    --muted: 160 20% 15%;
+    --muted-foreground: 160 15% 55%;
+    --accent: 45 95% 55%;
+    --accent-foreground: 160 30% 6%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 30% 96%;
+    --border: 160 20% 18%;
+    --input: 160 20% 15%;
+    --ring: 145 70% 45%;
+    --sidebar-background: 160 25% 8%;
+    --sidebar-foreground: 60 30% 96%;
+    --sidebar-primary: 145 70% 45%;
+    --sidebar-primary-foreground: 160 30% 6%;
+    --sidebar-accent: 160 20% 15%;
+    --sidebar-accent-foreground: 60 30% 96%;
+    --sidebar-border: 160 20% 18%;
+    --sidebar-ring: 145 70% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer components {
+  /* Glassmorphism */
+  .glass {
+    @apply bg-card/70 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+
+  .glass-hover {
+    @apply glass transition-all duration-500 hover:bg-card/80 hover:border-primary/30 hover:shadow-[var(--shadow-glow)];
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary;
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.4), 0 0 80px hsl(var(--primary) / 0.2);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 40px hsl(var(--accent) / 0.4), 0 0 80px hsl(var(--accent) / 0.2);
+  }
+
+  /* Animated border */
+  .border-glow {
+    @apply relative;
+  }
+
+  .border-glow::before {
+    content: '';
+    @apply absolute -inset-[1px] rounded-[inherit] bg-gradient-to-r from-primary via-accent to-primary opacity-0 transition-opacity duration-500 -z-10;
+    filter: blur(8px);
+  }
+
+  .border-glow:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Cricket ball texture */
+  .cricket-ball {
+    background: radial-gradient(circle at 30% 30%, hsl(0 75% 60%), hsl(0 75% 40%) 60%, hsl(0 75% 30%));
+  }
+
+  /* Parallax container */
+  .parallax-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  /* Floating animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: -3s;
+  }
+
+  /* Pulse glow */
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Shimmer effect */
+  .shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
+    animation: shimmer 2s infinite;
+  }
+}
+
+@layer utilities {
+  /* Text shadow for hero */
+  .text-shadow-hero {
+    text-shadow: 0 0 40px hsl(var(--primary) / 0.5), 0 0 80px hsl(var(--primary) / 0.3);
+  }
+
+  .text-shadow-gold {
+    text-shadow: 0 0 30px hsl(var(--accent) / 0.5);
+  }
+
+  /* 3D transform utilities */
+  .transform-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+/* Keyframe animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotateX(0) rotateY(0);
+  }
+  25% {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+  }
+  50% {
+    transform: translateY(-20px) rotateX(0) rotateY(10deg);
+  }
+  75% {
+    transform: translateY(-10px) rotateX(-5deg) rotateY(5deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4), 0 0 40px hsl(var(--primary) / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.6), 0 0 80px hsl(var(--primary) / 0.4);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Video background styles */
+.video-overlay {
+  @apply absolute inset-0;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--background) / 0.3) 0%,
+    hsl(var(--background) / 0.7) 50%,
+    hsl(var(--background) / 0.95) 100%
+  );
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/40 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/60;
+}
