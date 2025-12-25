@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import RegistrationForm from './RegistrationForm';
 
 const HeroSection = () => {
   const scrollToForm = () => {
@@ -7,20 +8,15 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Cricket Video Background */}
+    <section className="relative md:min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        >
-          <source src="/banner-video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-primary/50" />
+        <div className="absolute inset-0 bg-black/50 z-10" /> {/* Darker overlay for better text visibility */}
+        <img
+          src="/stats.png"
+          alt="Cricket Banner"
+          className="absolute inset-0 w-full h-full object-cover transform scale-105 hover:scale-110 transition-transform duration-[20s]"
+        />
       </div>
 
       {/* Semi-transparent Overlay */}
@@ -51,49 +47,36 @@ const HeroSection = () => {
       </div>
 
 
+
       {/* Content */}
-      <div className="container relative z-10 px-4 mx-auto text-center text-white py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <span className="inline-block px-4 py-2 mb-6 text-sm font-semibold tracking-wider uppercase bg-black/40 border border-white/20 rounded-full text-white backdrop-blur-sm shadow-lg">
-            Beyond Reach Premier League
-          </span>
-        </motion.div>
+      <div className="container relative z-10 px-4 mx-auto pt-24 pb-8 md:py-20">
+        <div className="grid lg:grid-cols-2 gap-0 md:gap-12 items-center">
+          {/* Left Content */}
+          <div className="text-center lg:text-left text-white">
 
-        <motion.h1
-          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white drop-shadow-2xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <span className="block text-white drop-shadow-md">UNLEASH YOUR</span>
-          <span className="block gradient-text text-shadow-hero drop-shadow-xl">INNER CHAMPION</span>
-        </motion.h1>
 
-        <motion.p
-          className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white drop-shadow-md font-medium"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          Join the elite training program that has produced international cricketers.
-          Master your skills with world-class coaches and state-of-the-art facilities.
-        </motion.p>
+            <motion.h1
+              className="text-4xl md:text-6xl lg:text-7xl font-bold mt-10 md:mt-0 mb-0 md:mb-6 leading-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <span className="block text-white mb-2">BHARAT KI LEAGUE</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] filter brightness-125">BHARTIYO KA SAPNA</span>
+            </motion.h1>
 
-        <div className="flex justify-center items-center">
-          <button
-            onClick={scrollToForm}
-            className="bg-[#263574] hover:bg-[#1f2b5e] text-white font-bold py-4 px-12 rounded-full text-lg transition-all duration-300 flex items-center gap-2 mx-auto group shadow-lg hover:shadow-xl hover:scale-105 transform border-2 border-white/20 relative overflow-hidden"
+
+          </div>
+
+          {/* Right Content - Registration Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="w-full max-w-2xl mx-auto lg:ml-auto"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              Register Now
-              <ChevronDown className="w-5 h-5 animate-bounce-subtle" />
-            </span>
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          </button>
+            <RegistrationForm isEmbedded={true} />
+          </motion.div>
         </div>
       </div>
 

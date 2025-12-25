@@ -1,36 +1,31 @@
 import { motion } from 'framer-motion';
-import { Dumbbell, Video, Users, Award, Timer, MapPin } from 'lucide-react';
+import { Smartphone, Trophy, Map, Scale, Users } from 'lucide-react';
 
 const features = [
   {
-    icon: <Dumbbell className="w-8 h-8" />,
-    title: 'Elite Training',
-    description: 'State-of-the-art facilities with advanced equipment and personalized training programs.',
+    icon: <Smartphone className="w-8 h-8" />,
+    title: 'Show Your Skills. From Anywhere.',
+    description: 'BRPL is where players get the chance to audition from your own state or own stadium or playground; you just need to shoot a small video and showcase your skill.',
   },
   {
-    icon: <Video className="w-8 h-8" />,
-    title: 'Video Analysis',
-    description: 'AI-powered biomechanical analysis to perfect your technique and identify areas for improvement.',
+    icon: <Trophy className="w-8 h-8" />,
+    title: 'One Performance. Zonal Stage. Nationwide League.',
+    description: 'BRPL gives you the chance to win your zone & then step straight into the nationwide league spotlight.',
+  },
+  {
+    icon: <Map className="w-8 h-8" />,
+    title: '28 States. 8 UTs. One High-Intensity Battle for the Top.',
+    description: 'A national stage bringing together top talent from 28 states and 8 UTs — real competition, real pressure & real cricket.',
+  },
+  {
+    icon: <Scale className="w-8 h-8" />,
+    title: 'Fair Selection',
+    description: '100% talent-based selection. No bias, no favouritism – just pure skill',
   },
   {
     icon: <Users className="w-8 h-8" />,
-    title: 'Expert Coaches',
-    description: 'Learn from former international cricketers and certified professional coaches.',
-  },
-  {
-    icon: <Award className="w-8 h-8" />,
-    title: 'Tournaments',
-    description: 'Regular competitive matches and tournaments to test your skills against the best.',
-  },
-  {
-    icon: <Timer className="w-8 h-8" />,
-    title: 'Flexible Schedule',
-    description: 'Morning, evening, and weekend batches to fit your lifestyle and commitments.',
-  },
-  {
-    icon: <MapPin className="w-8 h-8" />,
-    title: 'Multiple Locations',
-    description: 'Training centers across the city with indoor and outdoor practice facilities.',
+    title: 'All Age Groups',
+    description: 'Categories: Under-16, Under-19, Under-24, Under-40',
   },
 ];
 
@@ -40,7 +35,7 @@ const FeaturesSection = () => {
       {/* Background */}
       <div className="absolute inset-0">
         <img
-          src="/stats.png"
+          src="/image1.png"
           alt="Cricket background"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -60,9 +55,9 @@ const FeaturesSection = () => {
             Why Choose Us
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">
-            World-Class{' '}
+            Why Choose{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-              Training
+              BRPL?
             </span>
           </h2>
           <p className="text-white/70 max-w-lg mx-auto">

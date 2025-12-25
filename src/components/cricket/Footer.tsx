@@ -20,13 +20,12 @@ const Footer = () => {
                 <img
                   src="/logo.png"
                   alt="BRPL logo"
-                  className="h-16 w-auto object-contain"
+                  className="h-20 w-auto object-contain"
                 />
               </div>
             </a>
             <p className="text-white/80 mb-6 max-w-md">
-              Nurturing cricket talent since 2010. Join the academy that has produced
-              champions at national and international levels.
+              Beyond Reach Premier League (BRPL) is dedicated to nurturing cricket talent through world-class training, competitive leagues, and professional coaching programs. Join us in our mission to elevate the game and empower the next generation of cricketers.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (

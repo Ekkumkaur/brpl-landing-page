@@ -5,7 +5,11 @@ import { useToast } from '@/hooks/use-toast';
 
 import { MapPin, Building2, Square, Swords, CircleDot, Shield, Zap } from 'lucide-react';
 
-const RegistrationForm = () => {
+interface RegistrationFormProps {
+  isEmbedded?: boolean;
+}
+
+const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
   const { toast } = useToast();
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
   const [step, setStep] = useState(1);
@@ -354,54 +358,52 @@ const RegistrationForm = () => {
 
 
   return (
-    <section id="registration" className="py-24 relative overflow-hidden bg-[#111827]">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#111827] via-[#263574]/10 to-[#111827]" />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#263574]/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#263574]/20 rounded-full blur-3xl" />
+    <>
+      <section id="registration" className="p-15 py-20 relative overflow-hidden">
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className={`container mx-auto px-4 relative z-10 ${isEmbedded ? '' : 'grid lg:grid-cols-2 gap-12 items-center'}`}>
           {/* Left Content */}
-          <motion.div
-            className="text-left"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="inline-block px-4 py-1 mb-4 text-sm font-semibold tracking-wider uppercase bg-white/10 border border-white/20 rounded-full text-white">
-              Join The Elite
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 text-white">
-              Start Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Journey</span>
-            </h2>
-            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              Take the first step towards your professional cricket career. Our comprehensive registration process ensures we understand your skills and potential.
-            </p>
+          {!isEmbedded && (
+            <motion.div
+              className="text-left"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="inline-block px-4 py-1 mb-4 text-sm font-semibold tracking-wider uppercase bg-white/10 border border-white/20 rounded-full text-white">
+                Join The Elite
+              </span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 text-white">
+                Start Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Journey</span>
+              </h2>
+              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                Take the first step towards your professional cricket career. Our comprehensive registration process ensures we understand your skills and potential.
+              </p>
 
-            <div className="space-y-6">
-              {[
-                { step: 1, title: 'Personal Details', desc: 'Tell us about yourself and your cricketing role.' },
-                { step: 2, title: 'Secure Payment', desc: 'Complete the registration fee payment securely.' },
-                { step: 3, title: 'Create Account', desc: 'Secure your account with a username and password.' }
-              ].map((item) => (
-                <div key={item.step} className={`flex items-start gap-4 p-4 rounded-lg transition-colors ${step === item.step ? 'bg-white/10 border border-white/20' : ''}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shrink-0 ${step >= item.step ? 'bg-[#263574] text-white border border-white/20' : 'bg-white/5 text-gray-500 border border-white/10'}`}>
-                    {step > item.step ? <CheckCircle className="w-5 h-5" /> : item.step}
+              <div className="space-y-6">
+                {[
+                  { step: 1, title: 'Personal Details', desc: 'Tell us about yourself and your cricketing role.' },
+                  { step: 2, title: 'Secure Payment', desc: 'Complete the registration fee payment securely.' },
+                  { step: 3, title: 'Create Account', desc: 'Secure your account with a username and password.' }
+                ].map((item) => (
+                  <div key={item.step} className={`flex items-start gap-4 p-4 rounded-lg transition-colors ${step === item.step ? 'bg-white/10 border border-white/20' : ''}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shrink-0 ${step >= item.step ? 'bg-[#263574] text-white border border-white/20' : 'bg-white/5 text-gray-500 border border-white/10'}`}>
+                      {step > item.step ? <CheckCircle className="w-5 h-5" /> : item.step}
+                    </div>
+                    <div>
+                      <h4 className={`font-bold ${step === item.step ? 'text-white' : 'text-gray-400'}`}>{item.title}</h4>
+                      <p className="text-sm text-gray-400">{item.desc}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className={`font-bold ${step === item.step ? 'text-white' : 'text-gray-400'}`}>{item.title}</h4>
-                    <p className="text-sm text-gray-400">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* Right Form */}
           <motion.div
-            className="bg-white rounded-2xl p-8 shadow-2xl relative overflow-hidden"
+            className={`bg-white rounded-2xl p-4 md:p-8 shadow-2xl relative overflow-hidden ${isEmbedded ? 'w-full' : ''}`}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -785,7 +787,7 @@ const RegistrationForm = () => {
             </form>
           </motion.div>
         </div>
-      </div>
+      </section>
 
       {/* Success Modal Overlay */}
       <AnimatePresence>
@@ -832,7 +834,7 @@ const RegistrationForm = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </>
   );
 };
 
