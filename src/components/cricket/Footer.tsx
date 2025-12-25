@@ -3,10 +3,10 @@ import { Instagram, Twitter, Facebook, Youtube, Mail, Phone, MapPin } from 'luci
 
 const Footer = () => {
   const socialLinks = [
-    { icon: <Instagram className="w-5 h-5" />, href: '#', label: 'Instagram' },
-    { icon: <Twitter className="w-5 h-5" />, href: '#', label: 'Twitter' },
-    { icon: <Facebook className="w-5 h-5" />, href: '#', label: 'Facebook' },
-    { icon: <Youtube className="w-5 h-5" />, href: '#', label: 'YouTube' },
+    { icon: <Instagram className="w-5 h-5" />, href: 'https://www.instagram.com/brplofficial/', label: 'Instagram' },
+    { icon: <Twitter className="w-5 h-5" />, href: 'https://x.com/BRPLOfficial', label: 'Twitter' },
+    { icon: <Facebook className="w-5 h-5" />, href: 'https://www.facebook.com/people/BRPL-Official/61584782136820/', label: 'Facebook' },
+    // { icon: <Youtube className="w-5 h-5" />, href: '#', label: 'YouTube' },
   ];
 
   return (
@@ -25,7 +25,7 @@ const Footer = () => {
               </div>
             </a>
             <p className="text-white/80 mb-6 max-w-md">
-              Nurturing cricket talent since 2010. Join the academy that has produced 
+              Nurturing cricket talent since 2010. Join the academy that has produced
               champions at national and international levels.
             </p>
             <div className="flex gap-4">
@@ -69,10 +69,10 @@ const Footer = () => {
                 <MapPin className="w-5 h-5 text-white shrink-0 mt-0.5" />
                 <span>Ground Floor, Suite G-01, Procapitus Business Park, D-247/4A, D Block, Sector 63, Noida, Uttar Pradesh 201309</span>
               </li>
-              <li className="flex items-center gap-3 text-white/70">
+              {/* <li className="flex items-center gap-3 text-white/70">
                 <Phone className="w-5 h-5 text-white" />
                 <span>+1 234 567 8900</span>
-              </li>
+              </li> */}
               <li className="flex items-center gap-3 text-white/70">
                 <Mail className="w-5 h-5 text-white" />
                 <span>info@brpl.net</span>

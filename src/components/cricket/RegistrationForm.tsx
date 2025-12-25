@@ -211,7 +211,7 @@ const RegistrationForm = () => {
         key: "rzp_live_RsBsR05m5SGbtT", // Should ideally come from backend or env
         amount: orderData.amount,
         currency: orderData.currency,
-        name: "Cricket Academy",
+        name: "Beyond Reach Premier League",
         description: "Registration Fee",
         order_id: orderData.id,
         handler: async function (response: any) {

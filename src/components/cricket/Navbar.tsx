@@ -37,9 +37,8 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'glass py-3' : 'py-6'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass py-3' : 'py-6'
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -122,18 +121,7 @@ const Navbar = () => {
                     {link.name}
                   </motion.button>
                 ))} */}
-                <motion.button
-                  onClick={() => {
-                    navigate('/login');
-                    setIsMobileOpen(false);
-                  }}
-                  className="mt-4 px-6 py-3 bg-white text-[#263574] font-display font-semibold rounded-lg border-2 border-[#263574]/20 shadow-lg"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  Login
-                </motion.button>
+
                 <motion.button
                   onClick={() => scrollToSection('#registration')}
                   className="mt-4 px-6 py-3 bg-[#263574] text-white font-display font-semibold rounded-lg border-2 border-white/20 shadow-lg relative overflow-hidden group"

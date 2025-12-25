@@ -17,7 +17,6 @@ const HeroSection = () => {
           loop
           playsInline
           preload="metadata"
-          poster="/banner1.png"
         >
           <source src="/banner-video.mp4" type="video/mp4" />
         </video>
@@ -60,7 +59,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <span className="inline-block px-4 py-2 mb-6 text-sm font-semibold tracking-wider uppercase bg-black/40 border border-white/20 rounded-full text-white backdrop-blur-sm shadow-lg">
-            Premier Cricket Academy
+            Beyond Reach Premier League
           </span>
         </motion.div>
 
