@@ -85,10 +85,10 @@ const Footer = () => {
           <p className="text-sm text-white/60">
             © Copyright {new Date().getFullYear()} | All Rights Reserved by Beyond Reach Premier League
           </p>
-          <div className="flex gap-6 text-sm text-white/60">
+          {/* <div className="flex gap-6 text-sm text-white/60">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
