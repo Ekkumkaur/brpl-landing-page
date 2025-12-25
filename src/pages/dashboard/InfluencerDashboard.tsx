@@ -7,6 +7,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } f
 const InfluencerDashboard = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState<{ name: string, email: string, referralCode?: string, isVerified?: boolean } | null>(null);
+    const [totalReferrals, setTotalReferrals] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     // const BASE_URL = "http://localhost:5000";
     const BASE_URL = "https://brpl.net/api";
@@ -45,6 +46,15 @@ const InfluencerDashboard = () => {
                     referralCode: data?.data?.referralCode,
                     isVerified: data?.data?.isVerified
                 });
+
+                // Fetch Stats
+                const statsResponse = await fetch(`${BASE_URL}/auth/coach/my-players?limit=1`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                const statsData = await statsResponse.json();
+                if (statsData?.data?.pagination?.total !== undefined) {
+                    setTotalReferrals(statsData.data.pagination.total);
+                }
             } catch (e) {
                 navigate('/coach-login');
             } finally {
@@ -54,9 +64,9 @@ const InfluencerDashboard = () => {
 
         fetchProfile();
 
-    }, [navigate]);
 
-    const totalReferrals = useMemo(() => 0, []);
+
+    }, [navigate]);
 
     const chartConfig = useMemo(
         (): ChartConfig => ({

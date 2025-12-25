@@ -13,6 +13,7 @@ import CoachLogin from "./components/cricket/CoachLogin";
 import InfluencerDashboard from "./pages/dashboard/InfluencerDashboard";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import { TrackingHandler } from "./components/TrackingHandler";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <TrackingHandler />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />

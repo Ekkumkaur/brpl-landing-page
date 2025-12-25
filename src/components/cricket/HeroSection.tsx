@@ -1,8 +1,28 @@
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Copy, Check } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import RegistrationForm from './RegistrationForm';
 
 const HeroSection = () => {
+  const [searchParams] = useSearchParams();
+  const [referralCode, setReferralCode] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    // Force show with fallback as requested "show this hardly"
+    const code = searchParams.get('ref') || localStorage.getItem('brpl_ref_code') || 'WELCOME2025';
+    setReferralCode(code);
+  }, [searchParams]);
+
+  const copyToClipboard = () => {
+    if (referralCode) {
+      navigator.clipboard.writeText(referralCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
   const scrollToForm = () => {
     document.getElementById('registration')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -66,7 +86,39 @@ const HeroSection = () => {
             </motion.h1>
 
 
+            {referralCode && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="mt-8 mb-8 md:mb-0 inline-flex flex-col items-center lg:items-start"
+              >
+                <p className="text-gray-300 text-sm mb-2 font-medium tracking-wide uppercase">
+                  Your Exclusive Referral Code
+                </p>
+                <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-2 pr-4 rounded-xl shadow-2xl group transition-all hover:bg-white/15">
+                  <button
+                    onClick={copyToClipboard}
+                    className="bg-[#263574] text-white px-4 py-2 rounded-lg font-mono font-bold tracking-wider text-xl shadow-inner cursor-pointer hover:bg-[#1f2d5f] transition-colors"
+                  >
+                    {referralCode}
+                  </button>
+                  <button
+                    onClick={copyToClipboard}
+                    className="p-2 hover:bg-white/10 rounded-full transition-colors relative"
+                    title="Copy Code"
+                  >
+                    {copied ? <Check className="w-6 h-6 text-green-400" /> : <Copy className="w-6 h-6 text-white/80 group-hover:text-white" />}
+                  </button>
+                </div>
+                <p className="text-white/60 text-xs mt-2 max-w-[300px]">
+                  Use this code during registration (Step 3) to unlock special benefits.
+                </p>
+              </motion.div>
+            )}
           </div>
+
+
 
           {/* Right Content - Registration Form */}
           <motion.div

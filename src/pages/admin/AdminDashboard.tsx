@@ -10,7 +10,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } f
 const AdminDashboard = () => {
     const navigate = useNavigate();
     const [stats, setStats] = useState<{ totalUsers: number; totalCoaches: number; totalInfluencers: number } | null>(null);
-    const [activeTab, setActiveTab] = useState<'users' | 'coaches' | 'influencers'>('users');
+    const [activeTab, setActiveTab] = useState<'users' | 'coaches' | 'influencers' | 'traffic'>('users');
     const [items, setItems] = useState<any[]>([]);
     const [pagination, setPagination] = useState<{ page: number; limit: number; total: number; pages: number } | null>(null);
     const [loading, setLoading] = useState(true);
@@ -65,7 +65,14 @@ const AdminDashboard = () => {
                     search: search.trim()
                 });
 
-                const response = await fetch(`${BASE_URL}/admin/records?${query.toString()}`, {
+
+
+                // Use different endpoint for traffic
+                const endpoint = activeTab === 'traffic'
+                    ? `${BASE_URL}/auth/visits?${query.toString()}`
+                    : `${BASE_URL}/admin/records?${query.toString()}`;
+
+                const response = await fetch(endpoint, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 
@@ -137,6 +144,42 @@ const AdminDashboard = () => {
             </td>
             <td className="p-4 text-gray-400 text-xs">
                 {new Date(item.createdAt).toLocaleDateString()}
+            </td>
+        </tr>
+    );
+
+    const VisitRow = ({ item }: { item: any }) => (
+        <tr className="border-b hover:bg-gray-50 text-sm">
+            <td className="p-4 font-mono text-gray-600 text-xs">{item.ipAddress || '-'}</td>
+            <td className="p-4 text-gray-600">
+                {item.referralCode ? (
+                    <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">
+                        {item.referralCode}
+                    </span>
+                ) : '-'}
+            </td>
+            <td className="p-4 text-gray-600 max-w-xs truncate" title={item.userAgent || ''}>
+                {item.userAgent ? (item.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop') : '-'}
+            </td>
+            <td className="p-4">
+                {item.converted ? (
+                    <span className="flex items-center gap-1 text-green-600 font-bold text-xs">
+                        <ShieldCheck className="w-3 h-3" /> Converted
+                    </span>
+                ) : (
+                    <span className="text-gray-400 text-xs">Visited</span>
+                )}
+            </td>
+            <td className="p-4 text-gray-500 text-xs">
+                {item.userId ? (
+                    <div>
+                        <div className="font-bold text-gray-900">{item.userId.fname} {item.userId.lname}</div>
+                        <div>{item.userId.email}</div>
+                    </div>
+                ) : '-'}
+            </td>
+            <td className="p-4 text-gray-400 text-xs">
+                {new Date(item.createdAt).toLocaleString()}
             </td>
         </tr>
     );
@@ -312,6 +355,7 @@ const AdminDashboard = () => {
                                     <TabsTrigger value="users">Landing Page Players</TabsTrigger>
                                     <TabsTrigger value="coaches">Coaches</TabsTrigger>
                                     <TabsTrigger value="influencers">Influencers</TabsTrigger>
+                                    <TabsTrigger value="traffic">Traffic / Visits</TabsTrigger>
                                 </TabsList>
 
                                 <div className="flex gap-2 md:hidden">
@@ -330,19 +374,33 @@ const AdminDashboard = () => {
                                 </div>
                             </div>
 
-                            {(['users', 'coaches', 'influencers'] as const).map((t) => (
+                            {(['users', 'coaches', 'influencers', 'traffic'] as const).map((t) => (
                                 <TabsContent key={t} value={t} className="m-0">
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left">
                                             <thead className="bg-gray-50 text-xs uppercase text-gray-500 font-semibold">
                                                 <tr>
-                                                    <th className="p-4">Name</th>
-                                                    <th className="p-4">Email</th>
-                                                    <th className="p-4">Mobile</th>
-                                                    {t === 'users' && <th className="p-4">Role</th>}
-                                                    {t === 'users' && <th className="p-4">Paid Amount</th>}
-                                                    <th className="p-4">Info</th>
-                                                    <th className="p-4">Joined</th>
+                                                    {t !== 'traffic' && (
+                                                        <>
+                                                            <th className="p-4">Name</th>
+                                                            <th className="p-4">Email</th>
+                                                            <th className="p-4">Mobile</th>
+                                                            {t === 'users' && <th className="p-4">Role</th>}
+                                                            {t === 'users' && <th className="p-4">Paid Amount</th>}
+                                                            <th className="p-4">Info</th>
+                                                            <th className="p-4">Joined</th>
+                                                        </>
+                                                    )}
+                                                    {t === 'traffic' && (
+                                                        <>
+                                                            <th className="p-4">IP Address</th>
+                                                            <th className="p-4">Referral Code</th>
+                                                            <th className="p-4">Device</th>
+                                                            <th className="p-4">Status</th>
+                                                            <th className="p-4">User</th>
+                                                            <th className="p-4">Time</th>
+                                                        </>
+                                                    )}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -353,11 +411,15 @@ const AdminDashboard = () => {
                                                 )}
 
                                                 {!loadingTable && items.map((item: any) => (
-                                                    <TableRow
-                                                        key={item._id}
-                                                        item={item}
-                                                        type={t === 'users' ? 'user' : t === 'coaches' ? 'coach' : 'influencer'}
-                                                    />
+                                                    t === 'traffic' ? (
+                                                        <VisitRow key={item._id} item={item} />
+                                                    ) : (
+                                                        <TableRow
+                                                            key={item._id}
+                                                            item={item}
+                                                            type={t === 'users' ? 'user' : t === 'coaches' ? 'coach' : 'influencer'}
+                                                        />
+                                                    )
                                                 ))}
 
                                                 {!loadingTable && items.length === 0 && (
@@ -402,8 +464,8 @@ const AdminDashboard = () => {
                         </Tabs>
                     </div>
                 </main>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

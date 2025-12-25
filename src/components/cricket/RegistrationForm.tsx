@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Mail, Phone, Calendar, Target, Send, CheckCircle, CreditCard, Upload, ArrowRight, ArrowLeft, ChevronDown } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -41,6 +41,13 @@ const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
 
 
   const roles = ['Batsman', 'Bowler', 'Wicket Keeper', 'All-Rounder'];
+
+  useEffect(() => {
+    const ref = localStorage.getItem('brpl_ref_code');
+    if (ref) {
+      setFormData(prev => ({ ...prev, referralCodeUsed: ref }));
+    }
+  }, []);
 
   const handleNext = () => {
     if (step === 1) {
@@ -314,6 +321,8 @@ const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
         paymentAmount: formData.paymentAmount,
         paymentId: formData.paymentId,
         referralCodeUsed: formData.referralCodeUsed,
+        trackingId: localStorage.getItem('brpl_tracking_id'),
+        fbclid: localStorage.getItem('brpl_fbclid')
       };
 
       const response = await fetch(`${BASE_URL}/auth/register`, {
