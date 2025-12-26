@@ -86,7 +86,7 @@ const HeroSection = () => {
             </motion.h1>
 
 
-            {referralCode && (
+            {/* {referralCode && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -115,7 +115,7 @@ const HeroSection = () => {
                   Use this code during registration (Step 3) to unlock special benefits.
                 </p>
               </motion.div>
-            )}
+            )} */}
           </div>
 
 
