@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Mail, Phone, Calendar, Target, Send, CheckCircle, CreditCard, Upload, ArrowRight, ArrowLeft, ChevronDown } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -11,10 +12,11 @@ interface RegistrationFormProps {
 
 const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [formData, setFormData] = useState({
     role: '',
     name: '',
@@ -42,12 +44,14 @@ const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
 
   const roles = ['Batsman', 'Bowler', 'Wicket Keeper', 'All-Rounder'];
 
-  /* useEffect(() => {
+  /*
+  useEffect(() => {
     const ref = localStorage.getItem('brpl_ref_code');
     if (ref) {
       setFormData(prev => ({ ...prev, referralCodeUsed: ref }));
     }
-  }, []); */
+  }, []);
+  */
 
   const handleNext = () => {
     if (step === 1) {
@@ -320,7 +324,7 @@ const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
         isFromLandingPage: true,
         paymentAmount: formData.paymentAmount,
         paymentId: formData.paymentId,
-        // referralCodeUsed: formData.referralCodeUsed,
+        referralCodeUsed: formData.referralCodeUsed,
         trackingId: localStorage.getItem('brpl_tracking_id'),
         fbclid: localStorage.getItem('brpl_fbclid')
       };
@@ -336,11 +340,7 @@ const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
       const result = await response.json();
 
       if (response.ok) {
-        setIsSubmitted(true);
-        toast({
-          title: "Registration Complete! 🏏",
-          description: "Welcome to the BRPL Please login to continue.",
-        });
+        navigate('/thank-you');
       } else {
         toast({
           variant: "destructive",
@@ -672,7 +672,7 @@ const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
                         <CreditCard className="w-8 h-8 text-[#263574]" />
                       </div>
                       <h3 className="text-xl font-bold mb-2 text-gray-900">Registration Fee</h3>
-                      <p className="text-3xl font-bold text-[#263574] mb-1">₹1499.00</p>
+                      <p className="text-3xl font-bold text-[#263574] mb-1">₹1,499.00</p>
                       <p className="text-sm text-gray-500">One-time registration fee</p>
                     </div>
 
@@ -804,51 +804,6 @@ const RegistrationForm = ({ isEmbedded = false }: RegistrationFormProps) => {
         </div>
       </section>
 
-      {/* Success Modal Overlay */}
-      <AnimatePresence>
-        {isSubmitted && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="max-w-md w-full bg-white rounded-2xl p-8 text-center shadow-2xl relative"
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: 'spring' }}
-              >
-                <CheckCircle className="w-20 h-20 text-[#263574] mx-auto mb-6" />
-              </motion.div>
-              <h3 className="font-display text-3xl font-bold mb-4 text-gray-900">You're In!</h3>
-              <p className="text-gray-600 mb-6">
-                Thank you for registering. Our team will contact you within 24 hours.
-              </p>
-              <div className="flex gap-4 justify-center">
-                <button
-                  onClick={() => window.location.reload()}
-                  className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Close
-                </button>
-                <a
-                  href="https://brpl.net/auth"
-                  className="px-6 py-2 bg-[#263574] text-white rounded-lg hover:bg-[#1f2b5e] transition-colors"
-                >
-                  Login
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };
